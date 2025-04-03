@@ -1,27 +1,24 @@
-FROM python:3.10-slim
+FROM python:3.13-slim
 
 WORKDIR /app
 
-# Install Poetry
-RUN pip install --no-cache-dir poetry
+RUN apt-get update && apt-get install -y \
+    postgresql-client \
+    libpq-dev \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy poetry configuration files
-COPY pyproject.toml poetry.lock* ./
+RUN pip install poetry
 
-# Configure Poetry to not create a virtual environment
 RUN poetry config virtualenvs.create false
 
-# Install dependencies
-RUN poetry install --no-dev --no-interaction --no-ansi
+COPY pyproject.toml poetry.lock ./
 
-# Copy application code
+
+RUN poetry install --only main --no-interaction --no-ansi
+
 COPY . .
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-ENV FLASK_APP=main.py
+EXPOSE 8050
 
-EXPOSE 5000
-
-CMD ["flask", "run", "--host", "0.0.0.0"]
+CMD ["poetry", "run", "flask", "run", "--host=0.0.0.0", "--port=8050"]

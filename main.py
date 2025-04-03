@@ -8,7 +8,6 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 
-# Create Flask app
 app = create_app()
 
 # Initialize scheduler

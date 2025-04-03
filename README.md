@@ -57,7 +57,7 @@ tagesschau-crawler/
 ### **Step 1: Clone the Repository**
 
 ```sh
-git clone https://github.com/your-repo/tagesschau-crawler.git
+git clone https://github.com/Marlinekhavele/tagesschau-crawler
 cd tagesschau-crawler
 ```
 

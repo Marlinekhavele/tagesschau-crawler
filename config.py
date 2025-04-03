@@ -18,5 +18,5 @@ class Config:
 
 	# Crawler Configuration
 	TAGESSCHAU_BASE_URL = 'https://www.tagesschau.de'
-	TAGESSCHAU_OVERVIEW_URL = 'https://www.tagesschau.de/news/'
+	TAGESSCHAU_OVERVIEW_URL = 'https://www.tagesschau.de/'
 	CRAWLER_INTERVAL = 60  # minutes

@@ -5,7 +5,7 @@ services:
     image: postgres:14
     environment:
       - POSTGRES_USER=${POSTGRES_USER:-postgres}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password}
       - POSTGRES_DB=${POSTGRES_DB:-crawler_db}
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -23,20 +23,19 @@ services:
       dockerfile: Dockerfile
     environment:
       - POSTGRES_USER=${POSTGRES_USER:-postgres}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password}
       - POSTGRES_DB=${POSTGRES_DB:-crawler_db}
       - POSTGRES_HOST=localhost
       - POSTGRES_PORT=5432
       - FLASK_APP=main.py
       - FLASK_DEBUG=1
     ports:
-      - "5000:5000"
+      - "8050:8050"
     depends_on:
       db:
         condition: service_healthy
     volumes:
       - .:/app
-    command: flask run --host=0.0.0.0
 
 volumes:
   postgres_data:
