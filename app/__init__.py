@@ -9,7 +9,7 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
     
     db.init_app(app)
-    migrate = Migrate(app, db)
+    migrate = Migrate(app, db, directory="alembic")
     register_routes(app)
     
     with app.app_context():
