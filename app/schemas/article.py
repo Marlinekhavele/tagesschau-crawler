@@ -15,7 +15,8 @@ class ArticleSchema(Schema):
     url = fields.Str(required=True)
     created_at = fields.DateTime(dump_only=True)
     updated_at = fields.DateTime(dump_only=True)
-    versions = fields.List(fields.Nested(ArticleVersionSchema), dump_only=True)
+    versions = fields.Nested(ArticleVersionSchema, many=True, dump_only=True)
+
 
 
 class ArticleWithLatestVersionSchema(Schema):

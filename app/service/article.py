@@ -72,7 +72,9 @@ class ArticleService:
 				content=content,
 				published_at=published_at,
 				last_updated_at=last_updated_at,
-				crawled_at=datetime.utcnow()
+				crawled_at=datetime.utcnow(),
+				content_hash=hash(content),    
+    
 			)
 			db.session.add(version)
 

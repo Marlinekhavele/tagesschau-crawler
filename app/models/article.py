@@ -37,6 +37,7 @@ class ArticleVersion(db.Model):
 	content = db.Column(db.Text, nullable=False)
 	last_updated_at = db.Column(db.DateTime)
 	content_hash = db.Column(db.String(64), nullable=False)
+	published_at = db.Column(db.DateTime)
  
 
 	article = db.relationship('Article', back_populates='versions')
