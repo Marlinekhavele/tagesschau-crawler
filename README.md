@@ -144,3 +144,6 @@ Generate a coverage report:
 pytest --cov=app
 ```
 
+![screenshot](screenshot/1.png)
+![screenshot](screenshot/2.png)
+![screenshot](screenshot/3.png)
