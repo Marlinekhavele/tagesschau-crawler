@@ -1,17 +1,26 @@
-from flask import Flask, jsonify
-from flask_cors import CORS
+import logging
+from app import create_app
+from crawler.scheduler import CrawlerScheduler
 
-app = Flask(__name__)
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
 
-# app.register_blueprint(ws, url_prefix='/workers')
+# Create Flask app
+app = create_app()
 
+# Initialize scheduler
+scheduler = CrawlerScheduler(app)
 
-
-CORS(app)
-@app.route('/', methods=['GET'])
-def welcome():
-    return "Welcome to Blukers CRM API"
-
+@app.get("/")
+def read_root():
+    return {
+        "message": "Crawler API is running",
+        "version": "1.0.0",
+        "status": "OK"
+    }
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)
