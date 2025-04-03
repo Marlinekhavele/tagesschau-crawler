@@ -32,8 +32,7 @@ class ArticleService:
 	@staticmethod
 	def get_latest_articles(page=1, per_page=20):
 		"""Get latest version of each article with pagination"""
-		# This requires a more complex query that might be better handled at the ORM level
-		# or with a database view depending on performance requirements
+		
 		articles = Article.query.order_by(desc(Article.updated_at)) \
 			.paginate(page=page, per_page=per_page, error_out=False)
 
@@ -51,19 +50,16 @@ class ArticleService:
 		is_new_article = False
 		is_new_version = False
 
-		# Create article if it doesn't exist
 		if not article:
 			article = Article(url=url)
 			db.session.add(article)
 			db.session.commit()
 			is_new_article = True
 
-		# Check if content has changed by comparing with latest version
 		latest_version = None
 		if article.versions:
 			latest_version = article.versions[0] if article.versions else None
 
-		# Create new version if article is new or content has changed
 		if is_new_article or not latest_version or \
 				latest_version.headline != headline or \
 				latest_version.subheadline != subheadline or \
